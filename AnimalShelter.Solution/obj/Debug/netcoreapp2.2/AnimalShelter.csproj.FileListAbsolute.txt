@@ -24,3 +24,4 @@
 /Users/Guest/Desktop/AnimalShelter/AnimalShelter.Solution/obj/Debug/netcoreapp2.2/AnimalShelter.pdb
 /Users/Guest/Desktop/AnimalShelter/AnimalShelter.Solution/obj/Debug/netcoreapp2.2/AnimalShelter.csproj.CopyComplete
 /Users/Guest/Desktop/AnimalShelter/AnimalShelter.Solution/obj/Debug/netcoreapp2.2/Razor/Views/Animals/Create.g.cshtml.cs
+/Users/Guest/Desktop/AnimalShelter/AnimalShelter.Solution/obj/Debug/netcoreapp2.2/Razor/Views/Animals/Details.g.cshtml.cs

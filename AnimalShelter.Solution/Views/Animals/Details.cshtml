@@ -6,13 +6,12 @@
 
 <h2>Animal Details</h2>
 <hr />
-<h3>@Html.DisplayNameFor(model => model.AnimalId):</h3> 
+<h3>@Html.DisplayFor(model => model.Name):</h3> 
 <ul>
-<li><@Html.DisplayFor(model => model.Name)</li>
-<li><@Html.DisplayFor(model => model.Type)</li>
-<li><@Html.DisplayFor(model => model.Gender)</li>
-<li><@Html.DisplayFor(model => model.Breed)</li>
-<li><@Html.DisplayFor(model => model.DateAdmitted)</li>
+<li><b>Species:</b> @Html.DisplayFor(model => model.Type)</li>
+<li><b>Gender:</b> @Html.DisplayFor(model => model.Gender)</li>
+<li><b>Breed:</b> @Html.DisplayFor(model => model.Breed)</li>
+<li><b>Date Admitted:</b> @Html.DisplayFor(model => model.DateAdmitted)</li>
 </ul>
 
 <p>@Html.ActionLink("Back to list", "Index")</p>
