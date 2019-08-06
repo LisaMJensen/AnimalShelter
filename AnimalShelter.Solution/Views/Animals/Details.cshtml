@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model AnimalShelter.Models.Animal
+
+<h2>Animal Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.AnimalId):</h3> 
+<ul>
+<li><@Html.DisplayFor(model => model.Name)</li>
+<li><@Html.DisplayFor(model => model.Type)</li>
+<li><@Html.DisplayFor(model => model.Gender)</li>
+<li><@Html.DisplayFor(model => model.Breed)</li>
+<li><@Html.DisplayFor(model => model.DateAdmitted)</li>
+</ul>
+
+<p>@Html.ActionLink("Back to list", "Index")</p>

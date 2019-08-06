@@ -2943,13 +2943,8 @@
   "RootNamespace": "AnimalShelter",
   "Documents": [
     {
-      "FilePath": "Views/Animals/New.cshtml",
-      "TargetPath": "Views/Animals/New.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views/Animals/Show.cshtml",
-      "TargetPath": "Views/Animals/Show.cshtml",
+      "FilePath": "Views/Animals/Create.cshtml",
+      "TargetPath": "Views/Animals/Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2960,6 +2955,11 @@
     {
       "FilePath": "Views/Home/Index.cshtml",
       "TargetPath": "Views/Home/Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views/Animals/Details.cshtml",
+      "TargetPath": "Views/Animals/Details.cshtml",
       "FileKind": "mvc"
     },
     {

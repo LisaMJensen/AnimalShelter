@@ -1,34 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
 using AnimalShelter.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AnimalShelter.Controllers
 {
-    public class ItemsController : Controller
+    public class AnimalsController : Controller
     {
+        private readonly AnimalShelterContext _db;
 
-        [HttpGet("/animals/new")]
-        public ActionResult New(int animalId)
+        public AnimalsController(AnimalShelterContext db)
         {
-            Animal animal = Animal.Find(animalId);
-            return View(animal);
+            _db = db;
         }
 
-        [HttpGet("/animals/{animalId}")]
-        public ActionResult Show(int animalId)
+        public ActionResult Index()
         {
-            Animal animal = Animal.Find(animalId);
-            Dictionary<string, object> model = new Dictionary<string, object>();
-            model.Add("animal", animal);
+            List<Animal> model = _db.Animals.ToList();
             return View(model);
         }
 
-        [HttpPost("/items/delete")]
-        public ActionResult DeleteAll()
+        public ActionResult Create()
         {
-            Animal.ClearAll();
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Create(Animal animal)
+        {
+            _db.Animals.Add(animal);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(int id)
+        {
+            Animal thisAnimal = _db.Animals.FirstOrDefault(animals => animals.AnimalId == id);
+            return View(thisAnimal);
+        }
     }
 }
