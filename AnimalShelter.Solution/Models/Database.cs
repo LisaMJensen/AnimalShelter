@@ -1,8 +1,8 @@
 using System;
 using MySql.Data.MySqlClient;
-using ToDoList;
+using AnimalShelter;
 
-namespace ToDoList.Models
+namespace AnimalShelter.Models
 {
   public class DB
   {

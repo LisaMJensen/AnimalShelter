@@ -8,19 +8,23 @@ namespace AnimalShelter.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string Gender { get; set; }
-        public int DateAdmitted { get; set; }
+        public string DateAdmitted { get; set; }
         public string Breed { get; set; }
 
         public int Id { get; set; }
 
-        public Animal(string description)
-        {
-            Description = description;
-        }
+        // public Animal(string description)
+        // {
+        //     Description = description;
+        // }
 
-        public Animal(string description, int id)
+        public Animal(string name, string type, string gender, string dateAdmitted, string breed, int id)
         {
-            Description = description;
+            Name = name;
+            Type = type;
+            Gender = gender;
+            DateAdmitted = dateAdmitted;
+            Breed = breed;
             Id = id;
         }
 
@@ -34,8 +38,12 @@ namespace AnimalShelter.Models
             {
                 Animal newAnimal = (Animal)otherAnimal;
                 bool idEquality = (this.Id == newAnimal.Id);
-                bool descriptionEquality = (this.Description == newAnimal.Description);
-                return (idEquality && descriptionEquality);
+                bool nameEquality = (this.Name == newAnimal.Name);
+                bool typeEquality = (this.Type == newAnimal.Type);
+                bool genderEquality = (this.Gender == newAnimal.Gender);
+                bool dateAdmittedEquality = (this.DateAdmitted == newAnimal.DateAdmitted);
+                bool breedEquality = (this.Breed == newAnimal.Breed);
+                return (idEquality && nameEquality && typeEquality && genderEquality && dateAdmittedEquality && breedEquality);
             }
         }
 
@@ -49,9 +57,13 @@ namespace AnimalShelter.Models
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
             {
-                int animslId = rdr.GetInt32(0);
-                string animslDescription = rdr.GetString(1);
-                Animal newAnimal = new Animal(animalDescription, animalId);
+                int animalId = rdr.GetInt32(0);
+                string animalName = rdr.GetString(1);
+                string animalType = rdr.GetString(2);
+                string animalGender = rdr.GetString(3);
+                string animalBreed = rdr.GetString(4);
+                string animalDateAdmitted = rdr.GetString(5);
+                Animal newAnimal = new Animal(animalName, animalType, animalGender, animalBreed, animalDateAdmitted, animalId);
                 allAnimals.Add(newAnimal);
             }
             conn.Close();
@@ -76,7 +88,7 @@ namespace AnimalShelter.Models
             }
         }
 
-        public static Animal Find(int id)
+        public static Animal Find(int searchId)
         {
             // We open a connection.
             MySqlConnection conn = DB.Connection();
@@ -95,13 +107,21 @@ namespace AnimalShelter.Models
             // We use the ExecuteReader() method because our query will be returning results and we need this method to read these results. This is in contrast to the ExecuteNonQuery() method, which we use for SQL commands that don't return results like our Save() method.
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             int animalId = 0;
-            string animalDescription = "";
+            string animalName = "";
+            string animalType = "";
+            string animalGender = "";
+            string animalBreed = "";
+            string animalDateAdmitted = "";
             while (rdr.Read())
             {
                 animalId = rdr.GetInt32(0);
-                animalDescription = rdr.GetString(1);
+                animalName = rdr.GetString(1);
+                animalType = rdr.GetString(2);
+                animalGender = rdr.GetString(3);
+                animalBreed = rdr.GetString(4);
+                animalDateAdmitted = rdr.GetString(5);
             }
-            Animal foundAnimal = new Animal(animalDescription, animalId);
+            Animal foundAnimal = new Animal(animalName, animalType, animalGender, animalBreed, animalDateAdmitted, animalId);
 
             // We close the connection.
             conn.Close();
@@ -120,11 +140,31 @@ namespace AnimalShelter.Models
 
             // Begin new code
 
-            cmd.CommandText = @"INSERT INTO animals (description) VALUES (@AnimalDescription);";
-            MySqlParameter description = new MySqlParameter();
-            description.ParameterName = "@AnimalDescription";
-            description.Value = this.Description;
-            cmd.Parameters.Add(description);
+            cmd.CommandText = @"INSERT INTO animals (name) VALUES (@AnimalName);";
+            cmd.CommandText = @"INSERT INTO animals (type) VALUES (@AnimalType);";
+            cmd.CommandText = @"INSERT INTO animals (gender) VALUES (@AnimalGender);";
+            cmd.CommandText = @"INSERT INTO animals (breed) VALUES (@AnimalBreed);";
+            cmd.CommandText = @"INSERT INTO animals (dateAdmitted) VALUES (@AnimalName);";
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@AnimalName";
+            MySqlParameter type = new MySqlParameter();
+            type.ParameterName = "@AnimalType";
+            MySqlParameter gender = new MySqlParameter();
+            gender.ParameterName = "@AnimalType";
+            MySqlParameter breed = new MySqlParameter();
+            breed.ParameterName = "@AnimalBreed";
+            MySqlParameter dateAdmitted = new MySqlParameter();
+            dateAdmitted.ParameterName = "@AnimalDateAdmitted";
+            name.Value = this.Name;
+            type.Value = this.Type;
+            gender.Value = this.Gender;
+            breed.Value = this.Breed;
+
+            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(type);
+            cmd.Parameters.Add(gender);
+            cmd.Parameters.Add(breed);
+            cmd.Parameters.Add(dateAdmitted);
             cmd.ExecuteNonQuery();
             Id = (int)cmd.LastInsertedId;
 
